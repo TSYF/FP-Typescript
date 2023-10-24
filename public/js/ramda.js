@@ -14,7 +14,9 @@ function pipe(...callbacks) {
     if (callbacks.length === 1) {
         return callbacks[0];
     }
-    return (thing) => callbacks.reduce((result, callback) => callback(result), thing);
+    return (thing) => callbacks.reduce((result, callback) => {
+        return callback(result);
+    }, thing);
 }
 function curry(callback) {
     return function curried(...a) {

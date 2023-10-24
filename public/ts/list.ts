@@ -10,14 +10,14 @@ function app (
     append(view(state))(mountIn);
 
     dispatch((e: Event) => {
-        const newText = $.val!("message-text")();
+        const newText = (<HTMLInputElement>$("#message-text")).value;
 
-        const newState = {
+        const newState = [
             ...state,
             newText
-        }
+        ];
 
-        $.val!("message-text")("");
+        (<HTMLInputElement>$("#message-text")).value = "";
 
         app(newState, mountIn, dispatch);
     });
@@ -25,7 +25,7 @@ function app (
 
 function view(state: readonly string[]) {
     const el = elem("div");
-    
+
     return state.length > 0 ? R.pipe(
         ...state.map((val: string, index: number) => append(message(val, index)))
     )(el) : el;
@@ -48,7 +48,7 @@ function message(content: string, index: number, color: string = "dark") {
     )(elem("div"));
 }
 
-const btnClick = on("click", $("message-button"));
+const btnClick = on("click")($("#message-button"));
 
 app(
     final([]),

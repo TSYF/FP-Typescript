@@ -3,8 +3,12 @@ import * as R from "./ramda";
 const elem = (tag: string): HTMLElement => document.createElement(tag);
 const text = (inText: string) => document.createTextNode(inText);
 
-const on = R.curry(function (eventType: keyof ElementEventMap, element: Element, fn: (this: Element, ev?: Event) => void) {
+const on = R.curry(function (eventType: keyof ElementEventMap, element: HTMLElement, fn: (this: Element, ev?: Event) => void) {
     element.addEventListener(eventType, fn);
+
+    return function() {
+        element.removeEventListener(eventType, fn);
+    }
 })
 
 const addClass = R.curry((elClass: string, element: HTMLElement) => {
@@ -20,12 +24,19 @@ const addClass = R.curry((elClass: string, element: HTMLElement) => {
 // };
 
 const append = R.curry((node: Node, element: HTMLElement) => {
-    element.appendChild(node)
+    element.innerHTML = "";
+    element.append(node);
     return element;
 });
 
 const attr = R.curry((attrName: string, attrVal: string, element: HTMLElement) => {
     element.setAttribute(attrName, attrVal);
+    return element;
+});
+
+const clear = R.curry((element: HTMLElement) => {
+    element.innerHTML = '';
+
     return element;
 });
 

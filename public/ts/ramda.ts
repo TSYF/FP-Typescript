@@ -23,7 +23,9 @@ function pipe(...callbacks: Function[]): Function {
     }
 
     return (thing: unknown) => 
-        callbacks.reduce((result, callback) => callback(result), thing);
+        callbacks.reduce((result, callback) => {
+            return callback(result);
+        }, thing);
 }
 
 function curry(callback: Function): Function {
