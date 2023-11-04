@@ -24,8 +24,7 @@ const addClass = R.curry((elClass: string, element: HTMLElement) => {
 // };
 
 const append = R.curry((node: Node, element: HTMLElement) => {
-    element.innerHTML = "";
-    element.append(node);
+    element.appendChild(node);
     return element;
 });
 
@@ -58,8 +57,8 @@ type CustomElementSelector = {
 const $: CustomElementSelector = document.querySelector.bind(document)!;
 
 $.attr = R.curry((element: string, attr: string) => $(element)?.getAttribute(attr)!);
-$.val = R.curry((element: string, newVal?: string) => newVal ? (<HTMLInputElement>$(element))!.value = newVal : (<HTMLInputElement>$(element))?.value!);
+$.val = (element: string, newVal?: string) => (typeof newVal !== 'undefined') ? (<HTMLInputElement>$(element))!.value = newVal : (<HTMLInputElement>$(element))?.value!;
 
 const $$ = document.querySelectorAll.bind(document)!;
 
-export { elem, text, addClass, append, attr, final, $, $$, on };
+export { elem, text, addClass, append, attr, final, $, $$, on, clear };

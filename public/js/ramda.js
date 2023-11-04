@@ -25,4 +25,7 @@ function curry(callback) {
             : (...b) => curried(...a, ...b);
     };
 }
-export { compose, pipe, curry };
+function flip(fn) {
+    return curry((first, second) => fn(second, first));
+}
+export { compose, pipe, curry, flip };

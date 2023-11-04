@@ -18,8 +18,7 @@ const addClass = R.curry((elClass, element) => {
 //     }
 // };
 const append = R.curry((node, element) => {
-    element.innerHTML = "";
-    element.append(node);
+    element.appendChild(node);
     return element;
 });
 const attr = R.curry((attrName, attrVal, element) => {
@@ -33,6 +32,6 @@ const clear = R.curry((element) => {
 const { freeze: final } = Object;
 const $ = document.querySelector.bind(document);
 $.attr = R.curry((element, attr) => $(element)?.getAttribute(attr));
-$.val = R.curry((element, newVal) => newVal ? $(element).value = newVal : $(element)?.value);
+$.val = (element, newVal) => (typeof newVal !== 'undefined') ? $(element).value = newVal : $(element)?.value;
 const $$ = document.querySelectorAll.bind(document);
-export { elem, text, addClass, append, attr, final, $, $$, on };
+export { elem, text, addClass, append, attr, final, $, $$, on, clear };

@@ -1,5 +1,5 @@
 import * as R from './ramda';
-import { append, addClass, attr, text, elem, final, $, on } from './helpers'
+import { append, addClass, attr, text, elem, final, $, on, clear } from './helpers'
 
 function app (
     state: readonly string[],
@@ -7,17 +7,24 @@ function app (
     dispatch: Function
 ) {
 
-    append(view(state))(mountIn);
+    R.compose(
+        append(view(state)),
+        clear()
+    )(mountIn);
 
-    dispatch((e: Event) => {
-        const newText = (<HTMLInputElement>$("#message-text")).value;
+    const stop: Function = dispatch((e: Event) => {
+
+        stop();
+        // const newText = (<HTMLInputElement>$("#message-text")).value;
+        const newText = $.val!("#message-text");
 
         const newState = [
             ...state,
             newText
         ];
 
-        (<HTMLInputElement>$("#message-text")).value = "";
+        // (<HTMLInputElement>$("#message-text")).value = "";
+        $.val!("#message-text", "");
 
         app(newState, mountIn, dispatch);
     });

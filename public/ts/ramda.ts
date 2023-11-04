@@ -28,7 +28,7 @@ function pipe(...callbacks: Function[]): Function {
         }, thing);
 }
 
-function curry(callback: Function): Function {
+function curry(callback: Function) {
     return function curried(...a: unknown[]) {
         
         return a.length >= callback.length
@@ -37,4 +37,8 @@ function curry(callback: Function): Function {
     }
 }
 
-export { compose, pipe, curry };
+function flip(fn: Function) {
+    return curry((first?: unknown, second?: unknown) => fn(second, first));
+}
+
+export { compose, pipe, curry, flip };
