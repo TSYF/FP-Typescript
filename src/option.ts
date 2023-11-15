@@ -48,22 +48,22 @@ composed(8); //?
 composed(0); //?
 
 
-type Option<A> = Some<A> | None;
+export type Option<A> = Some<A> | None;
 
-interface Some<A> {
+export interface Some<A> {
     readonly _tag: "Some";
     readonly value: A;
     readonly toString: () => string;
 }
 
-interface None {
+export interface None {
     readonly _tag: "None"
 }
 
-const some = <A>(x: A): Option<A> => ({ _tag: "Some", value: x, toString() { return JSON.stringify(this)} });
-const none: Option<never> = { _tag: "None" };
+export const some = <A>(x: A): Option<A> => ({ _tag: "Some", value: x, toString() { return JSON.stringify(this)} });
+export const none: Option<never> = { _tag: "None" };
 
-const isNone = <A>(x: Option<A>): x is None => x._tag === "None";
+export const isNone = <A>(x: Option<A>): x is None => x._tag === "None";
 
 type DivideTwo2 = (x: number) => Option<number>;
 const divideTwo2: DivideTwo2 = (x) => (x === 0 ? none : some(2/x));
@@ -73,5 +73,5 @@ const composed2 = compose(
     divideTwo2
 );
 
-console.log(composed2(8)); //?
-console.log(composed2(0)); //?
+// console.log(composed2(8)); //?
+// console.log(composed2(0)); //?
