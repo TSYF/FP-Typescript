@@ -1,5 +1,4 @@
-import { match } from "./adt";
-import { List } from "./linkedList";
+import { List, match } from "./linkedList";
 import { Semigroup, addSemigroup, multiplySemigroup, appendSemigroup } from "./semigroup";
 
 export interface Monoid<A> extends Semigroup<A> {

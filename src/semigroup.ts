@@ -1,5 +1,4 @@
-import { match } from "./adt"
-import { List } from "./linkedList"
+import { List, match } from "./linkedList"
 import { Magma } from "./magma"
 import { Monoid } from "./monoid"
 

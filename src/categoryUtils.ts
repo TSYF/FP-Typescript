@@ -1,6 +1,5 @@
 import { compose } from "../public/ts/ramda"
-import { match } from "./adt"
-import { List, curriedCons as cCons, nil } from "./linkedList"
+import { List, curriedCons as cCons, match, nil } from "./linkedList"
 import { Monoid } from "./monoid"
 import { Semigroup } from "./semigroup"
 

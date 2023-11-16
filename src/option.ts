@@ -73,5 +73,17 @@ const composed2 = compose(
     divideTwo2
 );
 
+export type Match = <A, B>(onNone: () => B, onSome: (a: A) => B)
+    => (x: Option<A>) => B;
+export type MatchW = <A, B, C>(onNone: () => B, onSome: (a: A) => B | C)
+    => (x: Option<A>) => B | C;
+
+export const match: Match = (onNone, onSome) =>
+    x => isNone(x) ? onNone() : onSome(x.value);
+
+export const matchW: MatchW = (onNone, onSome) =>
+    x => isNone(x) ? onNone() : onSome(x.value);
+
+
 // console.log(composed2(8)); //?
 // console.log(composed2(0)); //?

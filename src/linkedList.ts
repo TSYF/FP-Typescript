@@ -12,7 +12,6 @@ export interface Nil {
     readonly _tag: "Nil";
 }
 
-
 export const nil: List<never> = { _tag: "Nil" };
 export const cons = <A>(head: A, tail: List<A>): List<A> => ({
     _tag: "Cons",
@@ -42,5 +41,10 @@ export const showList: ShowList = (xs) =>
     `` :
     xs.head + (isNil(xs.tail) ? "" : `, ${showList(xs.tail)}`);
 
+
+export type Match = <A, B>(onNil: () => B, onCons: (head: A, tail: List<A>) => B)
+    => (xs: List<A>) => B;
+export const match: Match = (onNil, onCons) =>
+    (xs) => isNil(xs) ? onNil() : onCons(xs.head, xs.tail);
 
 // console.log(showList(myList));

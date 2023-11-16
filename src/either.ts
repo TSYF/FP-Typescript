@@ -43,6 +43,12 @@ const composed = compose(
     divideTwoIfEven2
 );
 
+export type Match = <E, A, B>(onLeft: (e: E) => B, onRight: (a: A) => B)
+    => (x: Either<E, A>) => B;
+
+export const match: Match = (onLeft, onRight) =>
+    x => isLeft(x) ? onLeft(x.left) : onRight(x.right);
+
 // console.log("\n========= Composed =========\n");
 // console.log(composed(8));
 // console.log(composed(5));

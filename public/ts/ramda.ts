@@ -1,14 +1,15 @@
-function compose(...callbacks: Function[]): Function {
+type ComposableFunction = (arg: any) => any;
+function compose(...callbacks: ComposableFunction[]): ComposableFunction {
 
     if (callbacks.length === 0) {
-        return (thing: unknown) => thing;
+        return (thing) => thing;
     }
     if (callbacks.length === 1) {
 
         return callbacks[0];
     }
 
-    return (thing: unknown) => 
+    return (thing) => 
         callbacks.reduceRight((result, callback) => callback(result), thing);
 }
 
